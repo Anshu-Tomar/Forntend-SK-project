@@ -1,0 +1,62 @@
+<app-header [message]="message"></app-header>
+
+<div class="mainpage">
+  <div class="container">
+    <div class="row justify-content-between py-3">
+      <div class="col-6">
+        <div class="col-lg-6 col-md-6 mb-4 mb-md-0 px-1 text-end p-5">
+          <h3 class="text-uppercase text-start">Contact US</h3>
+
+          <ul class="list-unstyled mb-0 text-start">
+            <li>
+              <h4 class="text-black">Email : shreshth.karm&#64;gmail.com</h4>
+            </li>
+            <li>
+              <h4 class="text-black">Phone : 8976893421</h4>
+            </li>
+            <li>
+              <h4 class="text-black">Location : Shamli uttar pradesh India</h4>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="card">
+          <form [formGroup]="form" (ngSubmit)="send()" class="flex flex-col w-full mt-8">
+            <h1 class="text-center py-3">
+              Ask Any Query
+            </h1>
+            <div class="my-3 ps-3 pe-3">
+              <label for="name">Name</label>
+              <input formControlName="name" type="text" id="name" name="name" class="form-control my-2 mx-1 " />
+            </div>
+            <div class="my-3 ps-3 pe-3">
+              <label for="email">Email</label>
+              <input formControlName="email" type="email" id="email" name="email" class="form-control my-2 mx-1 " />
+            </div>
+            <div class="my-3 ps-3 pe-3">
+              <label for="message">Message</label>
+              <textarea formControlName="message" id="message" name="message"
+                class="form-control my-2 mx-1 "></textarea>
+            </div>
+            <div class="text-center my-3">
+              <button class="btn btn-primary text-center ps-4 pe-4" type="submit">
+                Send
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section2 my-3">
+  <div class="row">
+    <google-map height="400px" width="auto" [center]="center" [zoom]="zoom" (mapClick)="moveMap($event)"
+      (mapMousemove)="move($event)">
+    </google-map>
+  </div>
+</div>
+
+<app-footer></app-footer>

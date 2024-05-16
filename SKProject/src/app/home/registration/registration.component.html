@@ -1,0 +1,379 @@
+<app-header [message]="message"></app-header>
+
+<div class="mainpage">
+    <div class="container">
+        <div class="row">
+            <div class="jumbotron text-center">
+                <!-- <h1 class="display-5">
+                  Angular 7 Reactive Forms Tutorial
+                </h1> -->
+              </div>
+              
+              <div class="container mt-2" >
+                <div class="row custom-wrapper">
+                  <div class="col-md-12">
+              
+                    <!-- Form starts -->
+                    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+              
+                      <div class="group-gap row">
+                        <h2 class="mb-3">Personal Information</h2>
+                          <div class="mb-3 col-3">
+                            <label [ngClass]="{ 'is-invalid': submitted && myForm['firstName'].errors }">
+                              First name</label>
+                            <input type="text" class="form-control" formControlName="firstName" [ngClass]="{ 'is-invalid': submitted && myForm['firstName'].errors }">
+                            <!-- error block -->
+                            <div class="invalid-feedback" *ngIf="submitted && myForm['firstName'].errors?.['required']">
+                              <sup>*</sup>Enter your name
+                            </div>
+                            <div class="invalid-feedback" *ngIf="submitted && myForm['firstName'].errors?.['minlength']">
+                              <sup>*</sup>Name must be 2 characters long
+                            </div>
+                            <div class="invalid-feedback" *ngIf="submitted && myForm['firstName'].errors?.['pattern']">
+                              <sup>*</sup>No special charcter allowed
+                            </div>
+                          </div>
+                          <div class="mb-3 col-3">
+                            <label [ngClass]="{ 'is-invalid': submitted && myForm['lastName'].errors }">
+                              User name</label>
+                            <input type="text" class="form-control" formControlName="lastName" [ngClass]="{ 'is-invalid': submitted && myForm['lastName'].errors }">
+                            <!-- error block -->
+                            <div class="invalid-feedback" *ngIf="submitted && myForm['lastName'].errors?.['required']">
+                              <sup>*</sup>Enter your name
+                            </div>
+                            <div class="invalid-feedback" *ngIf="submitted && myForm['lastName'].errors?.['minlength']">
+                              <sup>*</sup>Name must be 2 characters long
+                            </div>
+                            <div class="invalid-feedback" *ngIf="submitted && myForm['lastName'].errors?.['pattern']">
+                              <sup>*</sup>No special charcter allowed
+                            </div>
+                          </div>
+              
+                        <div class="mb-3 col-3">
+                          <label [ngClass]="{ 'is-invalid': submitted && myForm['gender'].errors }">
+                            Gender</label>
+                            <select class="form-control" formControlName="gender">
+                              <option>-- Select Gender --</option>
+                              <option value="M">Male</option>
+                              <option value ="F">Female</option>
+                            </select>
+                            <div class="invalid-feedback" *ngIf="submitted && myForm['gender'].errors?.['required']">
+                              <sup>*</sup>select Gender
+                            </div>
+                          </div>
+                        <!-- Email -->
+                        <div class="mb-3 col-3">
+                          <label [ngClass]="{ 'is-invalid': submitted && myForm['email'].errors}">Email</label>
+                          <input type="email" class="form-control" formControlName="email" [ngClass]="{ 'is-invalid': submitted && myForm['email'].errors}">
+              
+                          <!-- error block -->
+                          <div class="invalid-feedback" *ngIf="submitted && myForm['email'].errors?.['required']">
+                            <sup>*</sup>Please enter your email
+                          </div>
+                          <div class="invalid-feedback" *ngIf="submitted && myForm['email'].errors?.['pattern']">
+                            <sup>*</sup>Please enter valid email
+                          </div>
+                        </div>
+              
+                       
+                      </div>
+
+                      <div class="group-gap row">
+              
+                        <!-- Phone number -->
+                        <div class="mb-3 col-3">
+                          <label [ngClass]="{ 'is-invalid': submitted && myForm['phoneNumber'].errors}">Phone Number</label>
+                          <input type="text" class="form-control" formControlName="phoneNumber" [maxlength]="10" [ngClass]="{ 'is-invalid': submitted && myForm['phoneNumber'].errors}">
+              
+                          <!-- error block -->
+                          <div class="invalid-feedback" *ngIf="submitted && myForm['phoneNumber'].errors?.['maxLength']">
+                            <sup>*</sup>Phone number must be 10 digit long
+                          </div>
+                          <div class="invalid-feedback" *ngIf="submitted && myForm['phoneNumber'].errors?.['required']">
+                            <sup>*</sup>Please enter your phone number
+                          </div>
+                          <div class="invalid-feedback" *ngIf="submitted && myForm['phoneNumber'].errors?.['pattern']">
+                            <sup>*</sup>Please enter valid phone number
+                          </div>
+                        </div>
+                        <!-- <div formGroupName="fullName" class="col-6"> -->
+                          <div class="mb-3 col-3">
+                            <label [ngClass]="{ 'is-invalid': submitted && myForm['fatherName'].errors}">
+                              Father name</label>
+                            <input type="text" class="form-control" formControlName="fatherName" [ngClass]="{ 'is-invalid': submitted && myForm['fatherName'].errors}">
+                            <!-- error block -->
+                            <div class="invalid-feedback" *ngIf="submitted && myForm['fatherName'].errors?.['required']">
+                              <sup>*</sup>Enter your name
+                            </div>
+                            <div class="invalid-feedback" *ngIf="submitted && myForm['fatherName'].errors?.['minlength']">
+                              <sup>*</sup>Name must be 2 characters long
+                            </div>
+                            <div class="invalid-feedback" *ngIf="submitted && myForm['fatherName'].errors?.['pattern']">
+                              <sup>*</sup>No special charcter allowed
+                            </div>
+                          </div>
+              
+                          <div class=" col-3 mb-3">
+                            <label [ngClass]="{ 'is-invalid': submitted && myForm['dob'].errors}">
+                              DOB</label>
+                            <input type="date" class="form-control" formControlName="dob" [ngClass]="{ 'is-invalid': submitted && myForm['dob'].errors}">
+                            <!-- error block -->
+                            <div class="invalid-feedback" *ngIf="submitted && myForm['dob'].errors?.['required']">
+                              <sup>*</sup>Please enter your surname
+                            </div>
+                          </div>
+                        <!-- </div> -->
+
+                        <div class="mb-3 col-3">
+                          <label [ngClass]="{ 'is-invalid': submitted && myForm['adharCardNumber'].errors}">Adhar Card Number</label>
+                          <input type="text" class="form-control" formControlName="adharCardNumber" [maxlength]="12" [ngClass]="{ 'is-invalid': submitted && myForm['adharCardNumber'].errors}">
+              
+                          <!-- error block -->
+                          <div class="invalid-feedback" *ngIf="submitted && myForm['adharCardNumber'].errors?.['required']">
+                            <sup>*</sup>Please enter your Adhar Card Number
+                          </div>
+                          <div class="invalid-feedback" *ngIf="submitted && myForm['adharCardNumber'].errors?.['maxLength']">
+                            <sup>*</sup>Please enter valid Adhar Card Number
+                          </div>
+                        </div>
+              
+                        <div class="mb-3 col-3">
+                          <label [ngClass]="{ 'is-invalid': submitted && myForm['penCardNumber'].errors}">Pan Card Number</label>
+                          <input type="text" class="form-control" formControlName="penCardNumber" [maxlength]="10" [ngClass]="{ 'is-invalid': submitted && myForm['penCardNumber'].errors}">
+              
+                          <!-- error block -->
+                          <div class="invalid-feedback" *ngIf="submitted && myForm['penCardNumber'].errors?.['maxLength']">
+                            <sup>*</sup>Pen Card Number must be 10 digit long
+                          </div>
+                          <div class="invalid-feedback" *ngIf="submitted && myForm['penCardNumber'].errors?.['required']">
+                            <sup>*</sup>Please enter your Pen Card Number
+                          </div>
+                        </div>
+                      </div>
+              
+                      <!-- Address -->
+                      <div class="group-gap row" >
+                        <h2 class="mb-3">Address</h2>
+                        <div class="mb-3 col-3">
+                          <label [ngClass]="{ 'is-invalid': submitted && myForm['address'].errors}">Street</label>
+                          <input type="text" class="form-control" formControlName="address" [ngClass]="{ 'is-invalid': submitted && myForm['address'].errors}">
+              
+                          <!-- error block -->
+                          <div class="invalid-feedback" *ngIf="submitted && myForm['address'].errors?.['required']">
+                            <sup>*</sup>Please enter your street
+                          </div>
+                        </div>
+              
+                        <div class="mb-3 col-3">
+                          <label [ngClass]="{ 'is-invalid': submitted && myForm['city'].errors}">City</label>
+                          <input type="text" class="form-control" formControlName="city" [ngClass]="{ 'is-invalid': submitted && myForm['city'].errors}">
+              
+                          <!-- error block -->
+                          <div class="invalid-feedback" *ngIf="submitted && myForm['city'].errors?.['required']">
+                            <sup>*</sup>Please enter your street
+                          </div>
+                        </div>
+              
+
+                        <div class="mb-3 col-3">
+                          <label [ngClass]="{ 'is-invalid': submitted && myForm['state'].errors}">State</label>
+                          <input type="text" class="form-control" formControlName="state" [ngClass]="{ 'is-invalid': submitted && myForm['state'].errors}">
+              
+                          <!-- error block -->
+                          <div class="invalid-feedback" *ngIf="submitted && myForm['state'].errors?.['required']">
+                            <sup>*</sup>Please enter your State
+                          </div>
+                        </div>
+
+
+                        <div class="mb-3 col-3">
+                          <label [ngClass]="{ 'is-invalid': submitted && myForm['zipCode'].errors}">Zip Code</label>
+                          <input type="text" class="form-control" formControlName="zipCode" [maxlength]="6" [ngClass]="{ 'is-invalid': submitted && myForm['zipCode'].errors}">
+              
+                          <!-- error block -->
+                          <div class="invalid-feedback" *ngIf="submitted && myForm['zipCode'].errors?.['required']">
+                            <sup>*</sup>Please enter your Zip Code
+                          </div>
+                        </div>
+                      </div>
+              
+                      
+                      <div class="group-gap row">
+                        <h2 class="mb-3">Nomine Information</h2>
+                          <div class="mb-3 col-3">
+                            <label [ngClass]="{ 'is-invalid': submitted && myForm['nomineName'].errors}">
+                              Nomine name</label>
+                            <input type="text" class="form-control" formControlName="nomineName" [ngClass]="{ 'is-invalid': submitted && myForm['nomineName'].errors}">
+                            <!-- error block -->
+                            <div class="invalid-feedback" *ngIf="submitted && myForm['nomineName'].errors?.['required']">
+                              <sup>*</sup>Enter your name
+                            </div>
+                            <div class="invalid-feedback" *ngIf="submitted && myForm['nomineName'].errors?.['minlength']">
+                              <sup>*</sup>Name must be 2 characters long
+                            </div>
+                            <div class="invalid-feedback" *ngIf="submitted && myForm['nomineName'].errors?.['pattern']">
+                              <sup>*</sup>No special charcter allowed
+                            </div>
+                          </div>
+              
+                         
+                        <!-- </div> -->
+                        
+                        <div class=" col-3 mb-3">
+                          <label [ngClass]="{ 'is-invalid': submitted && myForm['nominedob'].errors}">
+                            DOB</label>
+                          <input type="date" class="form-control" formControlName="nominedob"
+                            [ngClass]="{ 'is-invalid': submitted && myForm['nominedob'].errors}">
+                          <!-- error block -->
+                          <div class="invalid-feedback" *ngIf="submitted && myForm['nominedob'].errors?.['required']">
+                            <sup>*</sup>Please enter your surname
+                          </div>
+                        </div>
+              
+                        <!-- Phone number -->
+                        <div class="mb-3 col-3">
+                          <label [ngClass]="{ 'is-invalid': submitted && myForm['nominePhoneNumber'].errors}">Phone Number</label>
+                          <input type="text" class="form-control" formControlName="nominePhoneNumber" [maxlength]="10" [ngClass]="{ 'is-invalid': submitted && myForm['nominePhoneNumber'].errors}">
+              
+                          <!-- error block -->
+                          <div class="invalid-feedback" *ngIf="submitted && myForm['nominePhoneNumber'].errors?.['maxLength']">
+                            <sup>*</sup>Phone number must be 10 digit long
+                          </div>
+                          <div class="invalid-feedback" *ngIf="submitted && myForm['nominePhoneNumber'].errors?.['required']">
+                            <sup>*</sup>Please enter your phone number
+                          </div>
+                          <div class="invalid-feedback" *ngIf="submitted && myForm['nominePhoneNumber'].errors?.['pattern']">
+                            <sup>*</sup>Please enter valid phone number
+                          </div>
+                        </div>
+                      </div>
+
+                      
+                      <div class="group-gap row">
+                        <h2 class="mb-3">Bank Information</h2>
+                          <div class="mb-3 col-3">
+                            <label [ngClass]="{ 'is-invalid': submitted && myForm['bankAccountHolder'].errors}">
+                              Bank Holder name</label>
+                            <input type="text" class="form-control" formControlName="bankAccountHolder" [ngClass]="{ 'is-invalid': submitted && myForm['bankAccountHolder'].errors}">
+                            <!-- error block -->
+                            <div class="invalid-feedback" *ngIf="submitted && myForm['bankAccountHolder'].errors?.['required']">
+                              <sup>*</sup>Enter your name
+                            </div>
+                            <div class="invalid-feedback" *ngIf="submitted && myForm['bankAccountHolder'].errors?.['minlength']">
+                              <sup>*</sup>Name must be 2 characters long
+                            </div>
+                            <div class="invalid-feedback" *ngIf="submitted && myForm['bankAccountHolder'].errors?.['pattern']">
+                              <sup>*</sup>No special charcter allowed
+                            </div>
+                          </div>
+              
+
+                        <div class="mb-3 col-3">
+                          <label [ngClass]="{ 'is-invalid': submitted && myForm['bankAccountNumber'].errors}">Bank Account Number</label>
+                          <input type="text" class="form-control" formControlName="bankAccountNumber" [ngClass]="{ 'is-invalid': submitted && myForm['bankAccountNumber'].errors}">
+              
+                          <!-- error block -->
+                          <div class="invalid-feedback" *ngIf="submitted && myForm['bankAccountNumber'].errors?.['required']">
+                            <sup>*</sup>Please enter your Bank Account Number
+                          </div>
+                          <div class="invalid-feedback" *ngIf="submitted && myForm['bankAccountNumber'].errors?.['pattern']">
+                            <sup>*</sup>Please enter valid  Bank Account Number
+                          </div>
+                        </div>
+   
+                        <div class="mb-3 col-3">
+                          <label [ngClass]="{ 'is-invalid': submitted && myForm['bankName'].errors}">Bank Name</label>
+                          <input type="text" class="form-control" formControlName="bankName" [ngClass]="{ 'is-invalid': submitted && myForm['bankName'].errors}">
+              
+                          <div class="invalid-feedback" *ngIf="submitted && myForm['bankName'].errors?.['required']">
+                            <sup>*</sup>Please enter your bank Name
+                          </div>
+                        </div>
+              
+                        <div class="mb-3 col-3">
+                          <label [ngClass]="{ 'is-invalid': submitted && myForm['branchName'].errors}">Branch Name</label>
+                          <input type="text" class="form-control" formControlName="branchName" [ngClass]="{ 'is-invalid': submitted && myForm['branchName'].errors}">
+              
+                          <div class="invalid-feedback" *ngIf="submitted && myForm['branchName'].errors?.['required']">
+                            <sup>*</sup>Please enter your Branch Name
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="group-gap row">
+                          <div class="mb-3 col-3">
+                            <label [ngClass]="{ 'is-invalid': submitted && myForm['ifscCode'].errors}">
+                              IFSC Code</label>
+                            <input type="text" class="form-control" formControlName="ifscCode" [ngClass]="{ 'is-invalid': submitted && myForm['ifscCode'].errors}">
+                            <!-- error block -->
+                            <div class="invalid-feedback" *ngIf="submitted && myForm['ifscCode'].errors?.['required']">
+                              <sup>*</sup>Enter your name
+                            </div>
+                          </div>
+                          <div class="mb-3 col-3">
+                            <label [ngClass]="{ 'is-invalid': submitted && myForm['sponserId'].errors}">Sponseo Id</label>
+                            <input type="text" class="form-control" formControlName="sponserId" [ngClass]="{ 'is-invalid': submitted && myForm['sponserId'].errors}">
+                
+                            <div class="invalid-feedback" *ngIf="submitted && myForm['sponserId'].errors?.['required']">
+                              <sup>*</sup>Please enter your Sponsor
+                            </div>
+                          </div>
+                           <!-- Password -->
+                      <div>
+                        <div class="group-gap">
+                          <div class="mb-3">
+                            <label [ngClass]="{ 'is-invalid': submitted }">Password</label>
+                            <input type="password" class="form-control" formControlName="password" [ngClass]="{ 'is-invalid': submitted }">
+              
+                            <!-- error block -->
+                            <div class="invalid-feedback" *ngIf="submitted ">
+                              <sup>*</sup>Please enter password
+                            </div>
+                          </div>
+              
+                          <div class="mb-3">
+                            <label [ngClass]="{ 'is-invalid': submitted && myForm['confirmPassword'].errors}">Confirm
+                              Password</label>
+                            <input type="password" class="form-control" formControlName="confirmPassword" [ngClass]="{ 'is-invalid': submitted }">
+                          </div>
+              
+                          <!-- error block -->
+                          <div class="invalid-feedback" *ngIf="submitted && myForm['PasswordValidation']?.errors">
+                            <sup>*</sup>Password mismatch
+                          </div>
+                        </div>
+                      </div>
+              
+                      </div>
+               
+              
+                      <div class="group-gap">
+              
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+                        <button type="button" (click)="onReset()" class="btn btn-warning btn-lg btn-block float-right m-2">
+                          Reset</button>
+                      </div>
+              
+                    </form>
+              
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="container mt-2" *ngIf="ishiddenFlg">
+                <div class="row custom-wrapper">
+                  <div class="col-md-12">
+                    <h2 class="mb-3">Personal Information</h2>
+                    <div class="group-gap">
+                      <button type="submit" class="btn btn-primary btn-lg btn-block">Processed Payment</button>
+                    </div>
+            
+              
+                  </div>
+                </div>
+              </div> -->
+        </div>
+    </div>
+</div>
+
+
+<app-footer></app-footer>
