@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { Router } from '@angular/router';
 import { HttpClient ,HttpClientModule} from '@angular/common/http';
+import { testService } from '../../service/testservice.service';
 
 @Component({
   selector: 'app-header',
@@ -14,13 +15,19 @@ export class HeaderComponent implements OnInit {
   @Input()
   message!: string;
   @Input() isUserFlag!:boolean;
-  constructor(private router:Router, private http:HttpClient){}
+  isUserData:any;
+  name:string='';
+  constructor(private router:Router, private http:HttpClient , private service:testService){}
   ngOnInit(): void {
+    this.isUserData = sessionStorage.getItem('userdata') ;
+    this.isUserData = JSON.parse(this.isUserData )
+    this.name =this.isUserData.name
+    
   }
   
   logout(){
-    //localStorage.removeItem('seller');
-    this.http.post('http://127.0.0.1:8000/api/api/logoutall', null)
+    sessionStorage.removeItem('userdata');
+    this.http.post('http://54.158.23.217:8080/logout', null)
           .subscribe(
               data => {
                   this.router.navigate(['/']);

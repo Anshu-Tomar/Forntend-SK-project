@@ -21,8 +21,9 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 export class RegistrationComponent implements OnInit{
   message:string = "Registration"
   submitted = false;
+  isDataValue:any;
   registrationForm: FormGroup = new FormGroup({
-    firstName: new FormControl(''),
+    name: new FormControl(''),
     email: new FormControl(''),
     gender: new FormControl(''),
     fatherName: new FormControl(''),
@@ -34,9 +35,9 @@ export class RegistrationComponent implements OnInit{
     adharCardNumber: new FormControl(''),
     penCardNumber: new FormControl(''),
     phoneNumber: new FormControl(''),
-    nomineName: new FormControl(''),
-    nominedob: new FormControl(''),
-    nominePhoneNumber: new FormControl(''),
+    nomineeName: new FormControl(''),
+    nomineedob: new FormControl(''),
+    nomineePhoneNumber: new FormControl(''),
     bankAccountNumber: new FormControl(''),
     bankAccountHolder: new FormControl(''),
     bankName: new FormControl(''),
@@ -44,7 +45,7 @@ export class RegistrationComponent implements OnInit{
     branchName: new FormControl(''),
     password: new FormControl(''),
     confirmPassword: new FormControl(''),
-    sponserId: new FormControl('')
+    sponsorId: new FormControl('')
   });
   ishiddenFlg:boolean = false;
   
@@ -55,8 +56,7 @@ export class RegistrationComponent implements OnInit{
   ) {}
   ngOnInit(): void {
     this.registrationForm = this.fb.group({
-      firstName: ['', [Validators.required, Validators.minLength(2), Validators.pattern('^[_A-z0-9]*((-|\s)*[_A-z0-9])*$')]],
-      lastName:['',Validators.required],
+      name: ['', [Validators.required, Validators.minLength(2), Validators.pattern('^[_A-z0-9]*((-|\s)*[_A-z0-9])*$')]],
       email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
       gender: ['', [Validators.required]],
       fatherName: ['', [Validators.required]],
@@ -68,9 +68,9 @@ export class RegistrationComponent implements OnInit{
       adharCardNumber: ['', [Validators.required]],
       penCardNumber: ['', [Validators.required]],
       phoneNumber: ['', [Validators.required, Validators.maxLength(10), Validators.pattern('^[0-9]+$')]],
-      nomineName: ['', [Validators.required]],
-      nominedob: ['', [Validators.required]],
-      nominePhoneNumber: ['', [Validators.required]],
+      nomineeName: ['', [Validators.required]],
+      nomineedob: ['', [Validators.required]],
+      nomineePhoneNumber: ['', [Validators.required]],
       bankAccountNumber: ['', [Validators.required]],
       bankAccountHolder: ['', [Validators.required]],
       bankName: ['', [Validators.required]],
@@ -78,7 +78,7 @@ export class RegistrationComponent implements OnInit{
       branchName: ['', [Validators.required]],
       password: ['', Validators.required],
       confirmPassword: ['', [Validators.required,ValidatePassword.MatchPassword]],
-      sponserId:['',Validators.required]
+      sponsorId:['',Validators.required]
     }) 
   }
 
@@ -98,23 +98,24 @@ export class RegistrationComponent implements OnInit{
       return 
     } else {
       console.log(this.registrationForm.value);
-      let registrationUser ={
-        username: this.registrationForm.value.lastName,
-        email: this.registrationForm.value.email,
-        password: this.registrationForm.value.password,
-      }
-      this._http.post('http://127.0.0.1:8000/api/api/register/',registrationUser).subscribe(
+      // let registrationUser ={
+      //   username: this.registrationForm.value.lastName,
+      //   email: this.registrationForm.value.email,
+      //   password: this.registrationForm.value.password,
+      // }
+      // this._http.post('http://127.0.0.1:8000/api/api/register/',registrationUser).subscribe(
+      //   data => {
+      //      alert("Data Successfully save")
+      //   },
+      //   error => {
+      //       alert("this")
+      //       return
+      //   });
+      this._http.post('http://54.158.23.217:8080/onboard/saveDetailsOnboard',this.registrationForm.value).subscribe(
         data => {
-           alert("Data Successfully save")
-        },
-        error => {
-            alert("this")
-            return
-        });
-      this._http.post('http://127.0.0.1:8000/api/api/MemberList',this.registrationForm.value).subscribe(
-        data => {
-           this.router.navigate(['/']);
-          // this.ishiddenFlg = true
+          // this.router.navigate(['/']);
+           this.ishiddenFlg = true;
+           this.isDataValue = data
         },
         error => {
             // this.error = error;

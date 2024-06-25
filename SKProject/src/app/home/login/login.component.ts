@@ -4,11 +4,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { HeaderComponent } from "../header/header.component";
+import { testService } from '../../service/testservice.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule,FormsModule,CommonModule],
+  imports: [ReactiveFormsModule,FormsModule,CommonModule,HeaderComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -17,13 +19,14 @@ export class LoginComponent {
   loading = false;
   submitted = false;
   returnUrl: string | undefined;
-  error = '';
-
+  error = 'login Failed';
+    isloginData:any;
   constructor(
       private formBuilder: FormBuilder,
       private route: ActivatedRoute,
       private router: Router,
-      private http:HttpClient
+      private http:HttpClient,
+      private service:testService
   ) { 
       // redirect to home if already logged in
       // if (this.authenticationService.currentUserValue) { 
@@ -33,7 +36,7 @@ export class LoginComponent {
 
   ngOnInit() {
       this.loginForm = this.formBuilder.group({
-          username: ['', Validators.required],
+          id: [ Validators.required],
           password: ['', Validators.required]
       });
 
@@ -51,13 +54,20 @@ export class LoginComponent {
       if (this.loginForm.invalid) {
           return;
       }
-      debugger
-
+     //this.loginForm.controls['username'].setValue(parseInt(this.loginForm.controls['username'].value))
+      //http://54.158.23.217:8080/onboard/test
       this.loading = true;
-      this.http.post('http://127.0.0.1:8000/api/api/login/',this.loginForm.value)
+      this.http.post('http://54.158.23.217:8080/login',this.loginForm.value)
           .subscribe(
               data => {
+                  this.isloginData=data;
+                  let userData = {
+                    name:this.isloginData.data.name,
+                    id:this.isloginData.data.id
+                  }
+                  sessionStorage.setItem('userdata', JSON.stringify(userData))
                   this.router.navigate(['user']);
+
               },
               error => {
                   this.error = error;

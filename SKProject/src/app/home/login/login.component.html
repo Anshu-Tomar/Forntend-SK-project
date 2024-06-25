@@ -6,8 +6,8 @@
             <div class="card-body">
                 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                     <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" formControlName="username" class="form-control my-2 " [ngClass]="{ 'is-invalid': submitted }" />
+                        <label for="username">UserId</label>
+                        <input type="number" formControlName="id" class="form-control my-2 " [ngClass]="{ 'is-invalid': submitted }" />
                         <!-- <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
                             <div *ngIf="f.username.errors.required">Username is required</div>
                         </div> -->
